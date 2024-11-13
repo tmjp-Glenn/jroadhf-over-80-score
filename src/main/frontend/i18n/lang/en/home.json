@@ -1,0 +1,19 @@
+{
+    "title":"JROADHF Over 80 Score",
+    "desc":"Estimation of 1-year and 3-year mortality in heart failure patients aged 80 years and older",
+    "form":{
+        "label":{
+            "age":"Age",
+            "sex":"Sex",
+            "barthel_index":"Barthel index",
+            "history_hf":"History of HF",
+            "sbp":"SBP",
+            "bun":"BUN",
+            "hemoglobin":"Hemoglobin",
+            "albumin":"Albumin",
+            "bnp":"BNP",
+            "sodium":"Sodium",
+            "ace_arm_use":"ACE/ARB use"
+        }
+    }
+}

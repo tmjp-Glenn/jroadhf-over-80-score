@@ -1,6 +1,8 @@
 {
     "title":"JROADHF Over 80 Score",
     "desc":"Estimation of 1-year and 3-year mortality in heart failure patients aged 80 years and older",
+    "please_fill_out":"Please fill out required fields.",
+    "clear":"Clear",
     "form":{
         "label":{
             "age":"Age",
@@ -15,5 +17,9 @@
             "sodium":"Sodium",
             "ace_arm_use":"ACE/ARB use"
         }
+    },
+    "result":{
+        "1_year_mortality":"1-year mortality",
+        "3_year_mortality":"3-year mortality"
     }
 }

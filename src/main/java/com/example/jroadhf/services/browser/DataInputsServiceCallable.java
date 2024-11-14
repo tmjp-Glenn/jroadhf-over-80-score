@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.example.jroadhf.bean.MortalityResult;
 import com.example.jroadhf.dao.param.DataInputsParam;
 import com.example.jroadhf.dto.DataInputsDTO;
 import com.example.jroadhf.entity.AceArmUseEntity;
@@ -44,169 +45,180 @@ import lombok.AllArgsConstructor;
 @BrowserCallable
 @AllArgsConstructor
 @Service
-public class DataInputsServiceCallable  {
+public class DataInputsServiceCallable {
 
-    private final AgeRepo ageRepo;
-    private final GenderRepo genderRepo;
-    private final AlbuminRepo albuminRepo;
-    private final BarthelIndexRepo barthelIndexRepo;
-    private final BnpRepo bnpRepo;
-    private final BunRepo bunRepo;
-    private final HemoglobinRepo hemoglobinRepo;
-    private final HistoryHFERepo historyHFERepo;
-    private final SBPAdmissionRepo sbpAdminssionRepo;
-    private final SodiumRepo sodiumRepo;
-    private final AceArmUseRepo aceArmUseRepo;
+        private final AgeRepo ageRepo;
+        private final GenderRepo genderRepo;
+        private final AlbuminRepo albuminRepo;
+        private final BarthelIndexRepo barthelIndexRepo;
+        private final BnpRepo bnpRepo;
+        private final BunRepo bunRepo;
+        private final HemoglobinRepo hemoglobinRepo;
+        private final HistoryHFERepo historyHFERepo;
+        private final SBPAdmissionRepo sbpAdminssionRepo;
+        private final SodiumRepo sodiumRepo;
+        private final AceArmUseRepo aceArmUseRepo;
 
-    private final DataInputsRepo dataInputsRepo;
-    @NotNull
-     public List<DataInputsDTO> getDataInputs(){
-        return Optional.ofNullable(dataInputsRepo.getDataInputsValue())
-        .orElseGet(Collections::emptyList);
-    }
+        private final DataInputsRepo dataInputsRepo;
 
-    
+        @NotNull
+        public List<DataInputsDTO> getDataInputs() {
+                return Optional.ofNullable(dataInputsRepo.getDataInputsValue())
+                                .orElseGet(Collections::emptyList);
+        }
 
- public void saveAgeInputData(List<DataInputsParam> dataInputsParams) {
-        List<AgeEntity> ageEntities = dataInputsParams.stream()
-            .map(param -> AgeEntity.builder()
-                .id(param.getId())
-                .label(param.getLabel())
-                .value(param.getValue())
-                .timestamp(param.getTimeStamp())
-                .build())
-            .collect(Collectors.toList());
+        public MortalityResult calculateMortality(double totalPoints) {
+                double oneYearMortalityConstantVal = 0.77921;
+                double threeYearMortalityConstantVal = 0.51646;
+                double constantValue = 1.37464;
 
-        ageRepo.saveAll(ageEntities);
-    }
+                Double exponent = totalPoints - constantValue;
+                double oneYearMortality = (1 - (Math.pow(oneYearMortalityConstantVal, exponent))) * 100;
+                double threeYearMortality = (1 - (Math.pow(threeYearMortalityConstantVal, exponent))) * 100;
+                MortalityResult mortalityResult = new MortalityResult(oneYearMortality, threeYearMortality);
+                return mortalityResult;
+        }
 
-    public void saveGenderInputData(List<DataInputsParam> dataInputsParams) {
-        List<GenderEntity> genderEntities = dataInputsParams.stream()
-            .map(param -> GenderEntity.builder()
-                .id(param.getId())
-                .label(param.getLabel())
-                .value(param.getValue())
-                .timestamp(param.getTimeStamp())
-                .build())
-            .collect(Collectors.toList());
+        public void saveAgeInputData(List<DataInputsParam> dataInputsParams) {
+                List<AgeEntity> ageEntities = dataInputsParams.stream()
+                                .map(param -> AgeEntity.builder()
+                                                .id(param.getId())
+                                                .label(param.getLabel())
+                                                .value(param.getValue())
+                                                .timestamp(param.getTimeStamp())
+                                                .build())
+                                .collect(Collectors.toList());
 
-        genderRepo.saveAll(genderEntities);
-    }
+                ageRepo.saveAll(ageEntities);
+        }
 
-    public void saveAlbuminInputData(List<DataInputsParam> dataInputsParams) {
-        List<AlbuminEntity> albuminEntities = dataInputsParams.stream()
-            .map(param -> AlbuminEntity.builder()
-                .id(param.getId())
-                .label(param.getLabel())
-                .value(param.getValue())
-                .timestamp(param.getTimeStamp())
-                .build())
-            .collect(Collectors.toList());
+        public void saveGenderInputData(List<DataInputsParam> dataInputsParams) {
+                List<GenderEntity> genderEntities = dataInputsParams.stream()
+                                .map(param -> GenderEntity.builder()
+                                                .id(param.getId())
+                                                .label(param.getLabel())
+                                                .value(param.getValue())
+                                                .timestamp(param.getTimeStamp())
+                                                .build())
+                                .collect(Collectors.toList());
 
-        albuminRepo.saveAll(albuminEntities);
-    }
+                genderRepo.saveAll(genderEntities);
+        }
 
-    public void saveBarthelIndexInputData(List<DataInputsParam> dataInputsParams) {
-        List<BarthelIndexEntity> barthelIndexEntities = dataInputsParams.stream()
-            .map(param -> BarthelIndexEntity.builder()
-                .id(param.getId())
-                .label(param.getLabel())
-                .value(param.getValue())
-                .timestamp(param.getTimeStamp())
-                .build())
-            .collect(Collectors.toList());
+        public void saveAlbuminInputData(List<DataInputsParam> dataInputsParams) {
+                List<AlbuminEntity> albuminEntities = dataInputsParams.stream()
+                                .map(param -> AlbuminEntity.builder()
+                                                .id(param.getId())
+                                                .label(param.getLabel())
+                                                .value(param.getValue())
+                                                .timestamp(param.getTimeStamp())
+                                                .build())
+                                .collect(Collectors.toList());
 
-        barthelIndexRepo.saveAll(barthelIndexEntities);
-    }
+                albuminRepo.saveAll(albuminEntities);
+        }
 
-    public void saveBnpInputData(List<DataInputsParam> dataInputsParams) {
-        List<BnpEntity> bnpEntities = dataInputsParams.stream()
-            .map(param -> BnpEntity.builder()
-                .id(param.getId())
-                .label(param.getLabel())
-                .value(param.getValue())
-                .timestamp(param.getTimeStamp())
-                .build())
-            .collect(Collectors.toList());
+        public void saveBarthelIndexInputData(List<DataInputsParam> dataInputsParams) {
+                List<BarthelIndexEntity> barthelIndexEntities = dataInputsParams.stream()
+                                .map(param -> BarthelIndexEntity.builder()
+                                                .id(param.getId())
+                                                .label(param.getLabel())
+                                                .value(param.getValue())
+                                                .timestamp(param.getTimeStamp())
+                                                .build())
+                                .collect(Collectors.toList());
 
-        bnpRepo.saveAll(bnpEntities);
-    }
+                barthelIndexRepo.saveAll(barthelIndexEntities);
+        }
 
-    public void saveBunInputData(List<DataInputsParam> dataInputsParams) {
-        List<BunEntity> bunEntities = dataInputsParams.stream()
-            .map(param -> BunEntity.builder()
-                .id(param.getId())
-                .label(param.getLabel())
-                .value(param.getValue())
-                .timestamp(param.getTimeStamp())
-                .build())
-            .collect(Collectors.toList());
+        public void saveBnpInputData(List<DataInputsParam> dataInputsParams) {
+                List<BnpEntity> bnpEntities = dataInputsParams.stream()
+                                .map(param -> BnpEntity.builder()
+                                                .id(param.getId())
+                                                .label(param.getLabel())
+                                                .value(param.getValue())
+                                                .timestamp(param.getTimeStamp())
+                                                .build())
+                                .collect(Collectors.toList());
 
-        bunRepo.saveAll(bunEntities);
-    }
+                bnpRepo.saveAll(bnpEntities);
+        }
 
-    public void saveHemoglobinInputData(List<DataInputsParam> dataInputsParams) {
-        List<HemoglobinEntity> hemoglobinEntities = dataInputsParams.stream()
-            .map(param -> HemoglobinEntity.builder()
-                .id(param.getId())
-                .label(param.getLabel())
-                .value(param.getValue())
-                .timestamp(param.getTimeStamp())
-                .build())
-            .collect(Collectors.toList());
+        public void saveBunInputData(List<DataInputsParam> dataInputsParams) {
+                List<BunEntity> bunEntities = dataInputsParams.stream()
+                                .map(param -> BunEntity.builder()
+                                                .id(param.getId())
+                                                .label(param.getLabel())
+                                                .value(param.getValue())
+                                                .timestamp(param.getTimeStamp())
+                                                .build())
+                                .collect(Collectors.toList());
 
-        hemoglobinRepo.saveAll(hemoglobinEntities);
-    }
+                bunRepo.saveAll(bunEntities);
+        }
 
-    public void saveHistoryHFInputData(List<DataInputsParam> dataInputsParams) {
-        List<HistoryHFEntity> historyHFEntities = dataInputsParams.stream()
-            .map(param -> HistoryHFEntity.builder()
-                .id(param.getId())
-                .label(param.getLabel())
-                .value(param.getValue())
-                .timestamp(param.getTimeStamp())
-                .build())
-            .collect(Collectors.toList());
+        public void saveHemoglobinInputData(List<DataInputsParam> dataInputsParams) {
+                List<HemoglobinEntity> hemoglobinEntities = dataInputsParams.stream()
+                                .map(param -> HemoglobinEntity.builder()
+                                                .id(param.getId())
+                                                .label(param.getLabel())
+                                                .value(param.getValue())
+                                                .timestamp(param.getTimeStamp())
+                                                .build())
+                                .collect(Collectors.toList());
 
-        historyHFERepo.saveAll(historyHFEntities);
-    }
+                hemoglobinRepo.saveAll(hemoglobinEntities);
+        }
 
-    public void saveSBPAdmissionInputData(List<DataInputsParam> dataInputsParams) {
-        List<SBPAdmission> sbpAdmissionEntities = dataInputsParams.stream()
-            .map(param -> SBPAdmission.builder()
-                .id(param.getId())
-                .label(param.getLabel())
-                .value(param.getValue())
-                .timestamp(param.getTimeStamp())
-                .build())
-            .collect(Collectors.toList());
+        public void saveHistoryHFInputData(List<DataInputsParam> dataInputsParams) {
+                List<HistoryHFEntity> historyHFEntities = dataInputsParams.stream()
+                                .map(param -> HistoryHFEntity.builder()
+                                                .id(param.getId())
+                                                .label(param.getLabel())
+                                                .value(param.getValue())
+                                                .timestamp(param.getTimeStamp())
+                                                .build())
+                                .collect(Collectors.toList());
 
-        sbpAdminssionRepo.saveAll(sbpAdmissionEntities);
-    }
+                historyHFERepo.saveAll(historyHFEntities);
+        }
 
-    public void saveSodiumInputData(List<DataInputsParam> dataInputsParams) {
-        List<SodiumEntity> sodiumEntities = dataInputsParams.stream()
-            .map(param -> SodiumEntity.builder()
-                .id(param.getId())
-                .label(param.getLabel())
-                .value(param.getValue())
-                .timestamp(param.getTimeStamp())
-                .build())
-            .collect(Collectors.toList());
+        public void saveSBPAdmissionInputData(List<DataInputsParam> dataInputsParams) {
+                List<SBPAdmission> sbpAdmissionEntities = dataInputsParams.stream()
+                                .map(param -> SBPAdmission.builder()
+                                                .id(param.getId())
+                                                .label(param.getLabel())
+                                                .value(param.getValue())
+                                                .timestamp(param.getTimeStamp())
+                                                .build())
+                                .collect(Collectors.toList());
 
-        sodiumRepo.saveAll(sodiumEntities);
-    }
+                sbpAdminssionRepo.saveAll(sbpAdmissionEntities);
+        }
 
-    public void saveAceArmUseInputData(List<DataInputsParam> dataInputsParams) {
-        List<AceArmUseEntity> aceArmUseEntities = dataInputsParams.stream()
-            .map(param -> AceArmUseEntity.builder()
-                .id(param.getId())
-                .label(param.getLabel())
-                .value(param.getValue())
-                .timestamp(param.getTimeStamp())
-                .build())
-            .collect(Collectors.toList());
+        public void saveSodiumInputData(List<DataInputsParam> dataInputsParams) {
+                List<SodiumEntity> sodiumEntities = dataInputsParams.stream()
+                                .map(param -> SodiumEntity.builder()
+                                                .id(param.getId())
+                                                .label(param.getLabel())
+                                                .value(param.getValue())
+                                                .timestamp(param.getTimeStamp())
+                                                .build())
+                                .collect(Collectors.toList());
 
-        aceArmUseRepo.saveAll(aceArmUseEntities);
-    }
+                sodiumRepo.saveAll(sodiumEntities);
+        }
+
+        public void saveAceArmUseInputData(List<DataInputsParam> dataInputsParams) {
+                List<AceArmUseEntity> aceArmUseEntities = dataInputsParams.stream()
+                                .map(param -> AceArmUseEntity.builder()
+                                                .id(param.getId())
+                                                .label(param.getLabel())
+                                                .value(param.getValue())
+                                                .timestamp(param.getTimeStamp())
+                                                .build())
+                                .collect(Collectors.toList());
+
+                aceArmUseRepo.saveAll(aceArmUseEntities);
+        }
 }

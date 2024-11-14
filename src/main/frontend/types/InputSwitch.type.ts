@@ -1,5 +1,5 @@
 export type InputSwitchData = {
     label:string,
-    value:string | number
+    value: number
     type?:string
 }

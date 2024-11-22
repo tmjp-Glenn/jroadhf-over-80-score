@@ -15,10 +15,9 @@ interface IInputSwictch {
 
 const InputSwitch: React.FC<IInputSwictch> = (props) => {
   const { data, label, hasSubText, isMultiLineLabel, onSelect, value, isLoading } = props;
-  const [selected, setSelected] = useState<InputSwitchData | null>(value || null);
   const { t } = useTranslation('inputLabel');
   const onSelectHandler = (selectedData: InputSwitchData) => {
-    console.log(selectedData.value);
+    console.log(selectedData.value, selectedData.label);
     onSelect?.(selectedData);
     // return setSelected(selectedData);
   };
@@ -27,23 +26,24 @@ const InputSwitch: React.FC<IInputSwictch> = (props) => {
     return <InputSwitchSkeleton />;
   }
   return (
-    <div className="mb-2">
-      <span className="pl-2 font-semibold text-sm">{label}</span>
-      <div className="rounded-xl flex p-1 relative items-center border-2 gap-1 ">
+    <div className="mb-4">
+      <span className="pl-2 sm:text-xl font-semibold text-text-primary">{label}</span>
+      <div className="rounded-xl flex p-1 relative items-center border-2 gap-2 border-text-secondary">
         {data.map((i) => {
           return (
             <button
+              disabled={value?.label == i.label}
               onClick={() => {
                 onSelectHandler(i);
               }}
               key={i.value}
               className={clsx(
-                'w-full flex justify-center p-2 sm:h-10 items-center',
+                'w-full flex justify-center p-[10px] sm:h-14 items-center cursor-pointer',
                 value?.label == i.label &&
-                  'bg-[#00ACB1] rounded-md text-white font-semibold ease-in-out transition-colors ',
-                'hover:ring-2 rounded-md ring-[#ADC9CD]'
+                'bg-primary  rounded-md text-white font-semibold ease-in-out transition-colors ',
+                'hover:ring-2 rounded-md ring-[#9bc5c8]'
               )}>
-              <span className="text-xs w-full whitespace-normal break-words ">
+              <span className="sm:text-lg w-full whitespace-normal break-words  ">
                 {t(`${i.type}.${i.label}`)}
                 {isMultiLineLabel && (
                   <>
@@ -51,7 +51,7 @@ const InputSwitch: React.FC<IInputSwictch> = (props) => {
                     {t(`${i.type}.${i.label}_next_line`)}
                   </>
                 )}
-                {hasSubText && <sub className="sm:text-xs"> {t(`${i.type}.sub_text`)}</sub>}
+                {hasSubText && <sub className="sm:text-base"> {t(`${i.type}.sub_text`)}</sub>}
               </span>
             </button>
           );

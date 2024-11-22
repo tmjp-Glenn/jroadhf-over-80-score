@@ -25,9 +25,8 @@ import lombok.AllArgsConstructor;
 @Component
 @AllArgsConstructor
 
-public class DataInputSeeder implements CommandLineRunner{
+public class DataInputSeeder implements CommandLineRunner {
 
-    
     private final AgeRepo ageRepo;
     private final GenderRepo genderRepo;
     private final AlbuminRepo albuminRepo;
@@ -41,7 +40,7 @@ public class DataInputSeeder implements CommandLineRunner{
     private final AceArmUseRepo aceArmUseRepo;
 
     private final DataInputsServiceCallable dataInputsServiceCallable;
-    
+
     @Override
     public void run(String... args) {
         ageSeeder();
@@ -58,161 +57,160 @@ public class DataInputSeeder implements CommandLineRunner{
 
     }
 
-    private void ageSeeder(){
+    private void ageSeeder() {
         Long rows = ageRepo.count();
 
-        if(rows==0){
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());    
-            DataInputsParam param1 = new DataInputsParam(0,"80-84", 0f, timestamp);
-            DataInputsParam param2 = new DataInputsParam(1,"85-89", 0.29129f, timestamp);
-            DataInputsParam param3 = new DataInputsParam(2,"≥90", 0.43853f , timestamp);
+        if (rows == 0) {
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            DataInputsParam param1 = new DataInputsParam(0, "80-84", 0f, timestamp);
+            DataInputsParam param2 = new DataInputsParam(1, "85-89", 0.29129f, timestamp);
+            DataInputsParam param3 = new DataInputsParam(2, "≥90", 0.43853f, timestamp);
             List<DataInputsParam> params = Arrays.asList(param1, param2, param3);
 
             dataInputsServiceCallable.saveAgeInputData(params);
-        }else{
+        } else {
             System.out.println("===========================> Age already has data");
         }
     }
 
-    private void genderSeeder(){
+    private void genderSeeder() {
         Long rows = genderRepo.count();
-        if(rows==0){
+        if (rows == 0) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            DataInputsParam param1 = new DataInputsParam(0,"male", 0.51578f, timestamp);
-            DataInputsParam param2 = new DataInputsParam(1,"female", 0.0f, timestamp);
+            DataInputsParam param1 = new DataInputsParam(0, "male", 0.51578f, timestamp);
+            DataInputsParam param2 = new DataInputsParam(1, "female", 0.0f, timestamp);
             List<DataInputsParam> params = Arrays.asList(param1, param2);
 
             dataInputsServiceCallable.saveGenderInputData(params);
-        }else{
+        } else {
             System.out.println("===========================> Gender already has data");
         }
     }
 
-    private void barthelIndexSeeder(){
+    private void barthelIndexSeeder() {
         Long rows = barthelIndexRepo.count();
-        if(rows==0){
+        if (rows == 0) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            DataInputsParam param1 = new DataInputsParam(0,"≥90", 0.0f, timestamp);
-            DataInputsParam param2 = new DataInputsParam(1,"61-89", 0.34902f, timestamp);
-            DataInputsParam param3 = new DataInputsParam(2,"≤60", 0.78954f , timestamp);
+            DataInputsParam param1 = new DataInputsParam(0, "≥90", 0.0f, timestamp);
+            DataInputsParam param2 = new DataInputsParam(1, "61-89", 0.34902f, timestamp);
+            DataInputsParam param3 = new DataInputsParam(2, "≤60", 0.78954f, timestamp);
             List<DataInputsParam> params = Arrays.asList(param1, param2, param3);
 
             dataInputsServiceCallable.saveBarthelIndexInputData(params);
-        }else{
+        } else {
             System.out.println("===========================> Barthel Index already has data");
         }
     }
 
-    private void historyHfSeeder(){
+    private void historyHfSeeder() {
         Long rows = historyHFERepo.count();
-        if(rows==0){
+        if (rows == 0) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            DataInputsParam param1 = new DataInputsParam(0,"-", 0f, timestamp);
-            DataInputsParam param2 = new DataInputsParam(1,"+", 0.35664f, timestamp);
+            DataInputsParam param1 = new DataInputsParam(0, "-", 0f, timestamp);
+            DataInputsParam param2 = new DataInputsParam(1, "+", 0.35664f, timestamp);
             List<DataInputsParam> params = Arrays.asList(param1, param2);
 
             dataInputsServiceCallable.saveHistoryHFInputData(params);
-        }else{
+        } else {
             System.out.println("===========================> History HF already has data");
         }
     }
 
-    private void SbpAdmissionSeeder(){
+    private void SbpAdmissionSeeder() {
         Long rows = sbpAdminssionRepo.count();
-        if(rows==0){
+        if (rows == 0) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            DataInputsParam param1 = new DataInputsParam(0,"≥100", 0f, timestamp);
-            DataInputsParam param2 = new DataInputsParam(1,"<100", 0.31585f, timestamp);
+            DataInputsParam param1 = new DataInputsParam(0, "≥100", 0f, timestamp);
+            DataInputsParam param2 = new DataInputsParam(1, "<100", 0.31585f, timestamp);
             List<DataInputsParam> params = Arrays.asList(param1, param2);
 
             dataInputsServiceCallable.saveSBPAdmissionInputData(params);
-        }else{
+        } else {
             System.out.println("===========================> SBP Admission already has data");
         }
     }
 
-    private void hemoglobinSeeder(){
+    private void hemoglobinSeeder() {
         Long rows = hemoglobinRepo.count();
-        if(rows==0){
+        if (rows == 0) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            DataInputsParam param1 = new DataInputsParam(0,"≥12", 0f, timestamp);
-            DataInputsParam param2 = new DataInputsParam(1,"10-11.9", 0.23813f, timestamp);
-            DataInputsParam param3 = new DataInputsParam(2,"<10", 0.40091f, timestamp);
+            DataInputsParam param1 = new DataInputsParam(0, "≥12", 0f, timestamp);
+            DataInputsParam param2 = new DataInputsParam(1, "10-11.9", 0.23813f, timestamp);
+            DataInputsParam param3 = new DataInputsParam(2, "<10", 0.40091f, timestamp);
             List<DataInputsParam> params = Arrays.asList(param1, param2, param3);
 
             dataInputsServiceCallable.saveHemoglobinInputData(params);
-        }else{
+        } else {
             System.out.println("===========================> Hemoglobin already has data");
         }
     }
 
-    private void albuminSeeder(){
+    private void albuminSeeder() {
         Long rows = albuminRepo.count();
-        if(rows==0){
+        if (rows == 0) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            DataInputsParam param1 = new DataInputsParam(0,"≥3", 0f, timestamp);
-            DataInputsParam param2 = new DataInputsParam(1,"<3", 0.37812f, timestamp);
+            DataInputsParam param1 = new DataInputsParam(0, "≥3", 0f, timestamp);
+            DataInputsParam param2 = new DataInputsParam(1, "<3", 0.37812f, timestamp);
             List<DataInputsParam> params = Arrays.asList(param1, param2);
 
             dataInputsServiceCallable.saveAlbuminInputData(params);
-        }else{
+        } else {
             System.out.println("===========================> Albumin already has data");
         }
     }
 
-    
-    private void bunSeeder(){
+    private void bunSeeder() {
         Long rows = bunRepo.count();
-        if(rows==0){
+        if (rows == 0) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            DataInputsParam param1 = new DataInputsParam(0,"<25", 0f, timestamp);
-            DataInputsParam param2 = new DataInputsParam(1,"≥25", 0.21341f, timestamp);
+            DataInputsParam param1 = new DataInputsParam(0, "<25", 0f, timestamp);
+            DataInputsParam param2 = new DataInputsParam(1, "≥25", 0.21341f, timestamp);
             List<DataInputsParam> params = Arrays.asList(param1, param2);
 
             dataInputsServiceCallable.saveBunInputData(params);
-        }else{
+        } else {
             System.out.println("===========================> Bun already has data");
         }
     }
 
-    private void bnpSeeder(){
+    private void bnpSeeder() {
         Long rows = bnpRepo.count();
-        if(rows==0){
+        if (rows == 0) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            DataInputsParam param1 = new DataInputsParam(0,"<300", 0f, timestamp);
-            DataInputsParam param2 = new DataInputsParam(1,"≥300", 0.29743f, timestamp);
+            DataInputsParam param1 = new DataInputsParam(0, "<300", 0f, timestamp);
+            DataInputsParam param2 = new DataInputsParam(1, "≥300", 0.29743f, timestamp);
             List<DataInputsParam> params = Arrays.asList(param1, param2);
 
             dataInputsServiceCallable.saveBnpInputData(params);
-        }else{
+        } else {
             System.out.println("===========================> BNP already has data");
         }
     }
 
-    private void sodiumSeeder(){
+    private void sodiumSeeder() {
         Long rows = sodiumRepo.count();
-        if(rows==0){
+        if (rows == 0) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            DataInputsParam param1 = new DataInputsParam(0,"≥130", 0f, timestamp);
-            DataInputsParam param2 = new DataInputsParam(1,"<130", 0.60705f, timestamp);
+            DataInputsParam param1 = new DataInputsParam(0, "≥130", 0f, timestamp);
+            DataInputsParam param2 = new DataInputsParam(1, "<130", 0.60705f, timestamp);
             List<DataInputsParam> params = Arrays.asList(param1, param2);
 
             dataInputsServiceCallable.saveSodiumInputData(params);
-        }else{
+        } else {
             System.out.println("===========================> Sodium already has data");
         }
     }
 
-    private void aceArmUseSeeder(){
+    private void aceArmUseSeeder() {
         Long rows = aceArmUseRepo.count();
-        if(rows==0){
+        if (rows == 0) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            DataInputsParam param1 = new DataInputsParam(0,"-",0.20517f, timestamp);
-            DataInputsParam param2 = new DataInputsParam(1,"+", 0.60705f, timestamp);
+            DataInputsParam param1 = new DataInputsParam(0, "-", 0.20517f, timestamp);
+            DataInputsParam param2 = new DataInputsParam(1, "+", 0f, timestamp);
             List<DataInputsParam> params = Arrays.asList(param1, param2);
 
             dataInputsServiceCallable.saveAceArmUseInputData(params);
-        }else{
+        } else {
             System.out.println("===========================> Ace Arm Use already has data");
         }
     }

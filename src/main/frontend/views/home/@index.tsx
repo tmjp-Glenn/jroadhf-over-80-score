@@ -4,12 +4,16 @@ import { calculateMortality } from 'Frontend/generated/DataInputsServiceCallable
 import { useCalculateMortality } from 'Frontend/hooks/useCalculateMortality';
 import { useDataInputs } from 'Frontend/hooks/useDataInputs';
 import { InputSwitchData } from 'Frontend/types/InputSwitch.type';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const Home = () => {
   const { t } = useTranslation('home');
+  const resultCardRef = useRef<HTMLDivElement>(null);
   const [inputValue, setInputValue] = useState<{ [key: string]: InputSwitchData }>();
+  const handleScrollToResultCard = () => {
+    resultCardRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
   const {
     lnOutAge,
     lnOutAceArbUse,
@@ -29,7 +33,7 @@ const Home = () => {
     keysLength,
     oneYearMortalityValue = 0,
     threeYearMortalityValue = 0,
-  } = useCalculateMortality(inputValue);
+  } = useCalculateMortality(inputValue, resultCardRef);
 
   const onInputSwitchHandler = (e: InputSwitchData) => {
     setInputValue((prev) => ({
@@ -47,14 +51,14 @@ const Home = () => {
   };
 
   return (
-    <div className="w-full lg:max-w-4xl relative">
-      <div className="sticky animate-slide-down top-0 z-10 flex-col flex mb-3 bg-[#87E4DB] pt-4 justify-center p-2 border-b-[12px] border-[#005963] drop-shadow-md">
-        <span className="sm:text-2xl text-xl font-bold">{t('title')}</span>
-        <span className="sm:text-sm text-xs">{t('desc')}</span>
-        <div className="flex justify-end pt-2">
+    <div className="w-full flex flex-col justify-center items-center relative">
+      <div className=" w-full animate-slide-down top-0 z-10 flex-col flex mb-3  pt-4 justify-center items-center p-2 bg-primary border-b-[10px] border-secondary-light drop-shadow-md">
+        <span className="sm:text-5xl text-xl font-bold text-secondary-lighter">{t('title')}</span>
+        <span className="sm:text-lg text-base text-secondary-lighter">{t('desc')}</span>
+        {/* <div className="flex justify-end pt-2">
           <button
             className="flex flex-row text-sm gap-1  p-1 hover:bg-[#00abb1cc] hover:scale-105 bg-[#00ACB1] rounded-sm text-white justify-center items-center"
-            onClick={onClear}>
+            onClick={handleScrollToResultCard}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -70,9 +74,9 @@ const Home = () => {
             </svg>
             {t('clear')}
           </button>
-        </div>
+        </div> */}
       </div>
-      <div className="sm:px-14 px-2">
+      <div className="sm:px-14 px-2 lg:max-w-4xl w-full ">
         <InputSwitch
           isLoading={isLoading}
           value={inputValue?.['age']}
@@ -159,17 +163,19 @@ const Home = () => {
           onSelect={onInputSwitchHandler}
         />
       </div>
-      {keysLength > 10 ? (
+      {keysLength > 10 && (
         <ResultCard
+          ref={resultCardRef}
           isLoading={isCalculationLoading}
-          oneYearMortality={parseFloat(oneYearMortalityValue.toFixed(1))}
-          threeyearMortality={parseFloat(threeYearMortalityValue.toFixed(1))}
+          oneYearMortality={Math.max(parseFloat(oneYearMortalityValue.toFixed(1)), 0)}
+          threeyearMortality={Math.max(parseFloat(threeYearMortalityValue.toFixed(1)), 0)}
         />
-      ) : (
+      )}
+      {/* { (
         <div className="animate-slide-up sticky bottom-0 bg-[#005963] w-full p-2  flex flex-row text-white font-semibold tracking-wide sm:text-base text-xs">
           {t('please_fill_out')}
         </div>
-      )}
+      )} */}
     </div>
   );
 };

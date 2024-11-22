@@ -1,12 +1,17 @@
 import MortalityResult from 'Frontend/generated/com/example/jroadhf/bean/MortalityResult';
 import { calculateMortality } from 'Frontend/generated/DataInputsServiceCallable';
 import { InputSwitchData } from 'Frontend/types/InputSwitch.type';
-import { useEffect, useState } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 
-export const useCalculateMortality = (inputValue: { [key: string]: InputSwitchData } | undefined) => {
+export const useCalculateMortality = (inputValue: { [key: string]: InputSwitchData } | undefined,resultCardRef:RefObject<HTMLDivElement>) => {
   const [keys, setKeys] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [mortality, setMortality] = useState<MortalityResult | null>();
+  const [isFirstCalculation,setFirstTimeCalculation]=useState<boolean>(true)
+  const handleScrollToResultCard = () => {
+    resultCardRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const calculate = async () => {
     if (inputValue) {
       const keys = Object.keys(inputValue);
@@ -19,6 +24,10 @@ export const useCalculateMortality = (inputValue: { [key: string]: InputSwitchDa
         setIsLoading(true);
         const mortalityValue = await calculateMortality(totalPoints);
         setMortality(mortalityValue);
+        if(isFirstCalculation){
+          handleScrollToResultCard()
+          setFirstTimeCalculation(false)
+        }
         console.log(totalPoints);
       } else {
         setMortality(null);

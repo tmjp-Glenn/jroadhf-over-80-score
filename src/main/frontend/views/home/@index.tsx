@@ -54,7 +54,7 @@ const Home = () => {
     <div className="w-full flex flex-col justify-center items-center relative">
       <div className=" w-full animate-slide-down top-0 z-10 flex-col flex mb-3  pt-4 justify-center items-center p-2 bg-primary border-b-[10px] border-secondary-light drop-shadow-md">
         <span className="sm:text-5xl text-xl font-bold text-secondary-lighter">{t('title')}</span>
-        <span className="sm:text-lg text-base text-secondary-lighter">{t('desc')}</span>
+        <span className="sm:text-lg text-sm text-secondary-lighter">{t('desc')}</span>
         {/* <div className="flex justify-end pt-2">
           <button
             className="flex flex-row text-sm gap-1  p-1 hover:bg-[#00abb1cc] hover:scale-105 bg-[#00ACB1] rounded-sm text-white justify-center items-center"

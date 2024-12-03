@@ -26,9 +26,9 @@ const InputSwitch: React.FC<IInputSwictch> = (props) => {
     return <InputSwitchSkeleton />;
   }
   return (
-    <div className="mb-4">
+    <div className="mb-4 select-none">
       <span className="pl-2 sm:text-xl font-semibold text-text-primary">{label}</span>
-      <div className="rounded-xl flex p-1 relative items-center border-2 gap-2 border-text-secondary">
+      <div className="rounded-xl flex  p-1 relative items-center border-2 gap-2 border-text-secondary ">
         {data.map((i) => {
           return (
             <button
@@ -40,7 +40,7 @@ const InputSwitch: React.FC<IInputSwictch> = (props) => {
               className={clsx(
                 'w-full flex justify-center p-[10px] sm:h-14 items-center cursor-pointer',
                 value?.label == i.label &&
-                'bg-primary  rounded-md text-white font-semibold ease-in-out transition-colors ',
+                  'bg-primary  rounded-md text-white font-semibold ease-in-out transition-colors ',
                 'hover:ring-2 rounded-md ring-[#9bc5c8]'
               )}>
               <span className="sm:text-lg w-full whitespace-normal break-words  ">
@@ -48,10 +48,10 @@ const InputSwitch: React.FC<IInputSwictch> = (props) => {
                 {isMultiLineLabel && (
                   <>
                     <br />
-                    {t(`${i.type}.${i.label}_next_line`)}
+                    <span className="sm:text-sm text-xs">{t(`${i.type}.${i.label}_next_line`)}</span>
                   </>
                 )}
-                {hasSubText && <sub className="sm:text-base"> {t(`${i.type}.sub_text`)}</sub>}
+                {hasSubText && <sub className="sm:text-sm"> {t(`${i.type}.sub_text`)}</sub>}
               </span>
             </button>
           );

@@ -51,7 +51,7 @@ const Home = () => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-center items-center relative">
+    <div className="w-full flex flex-col justify-center items-center relative ">
       <div className=" w-full animate-slide-down top-0 z-10 flex-col flex mb-3  pt-4 justify-center items-center p-2 bg-primary border-b-[10px] border-secondary-light drop-shadow-md">
         <span className="sm:text-5xl text-xl font-bold text-secondary-lighter">{t('title')}</span>
         <span className="sm:text-lg text-sm text-secondary-lighter">{t('desc')}</span>
@@ -157,25 +157,28 @@ const Home = () => {
         />
         <InputSwitch
           isLoading={isLoading}
-          data={lnOutAceArbUse}
+          data={lnOutAceArbUse.reverse()}
           value={inputValue?.['ace_arm_use']}
           label={t('form.label.ace_arm_use')}
           onSelect={onInputSwitchHandler}
         />
       </div>
-      {keysLength > 10 && (
+      {keysLength > 10 ? (
         <ResultCard
+          // onClear={onClear}
           ref={resultCardRef}
           isLoading={isCalculationLoading}
           oneYearMortality={Math.max(parseFloat(oneYearMortalityValue.toFixed(1)), 0)}
           threeyearMortality={Math.max(parseFloat(threeYearMortalityValue.toFixed(1)), 0)}
         />
-      )}
-      {/* { (
-        <div className="animate-slide-up sticky bottom-0 bg-[#005963] w-full p-2  flex flex-row text-white font-semibold tracking-wide sm:text-base text-xs">
-          {t('please_fill_out')}
+      ) : (
+        <div className="animate-slide-up  bottom-0 bg-primary items-center justify-center w-full p-2  flex flex-row text-white border-t-8 border-secondary-light  ">
+          <div className="lg:max-w-4xl w-full tracking-wide sm:text-sm text-xs ">
+            <span className="font-bold ">{t('abbr')} </span>
+            {t('abbr_details')}
+          </div>
         </div>
-      )} */}
+      )}
     </div>
   );
 };

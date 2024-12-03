@@ -2,12 +2,14 @@
     "title":"JROADHF Over 80 Score",
     "desc":"Estimation of 1-year and 3-year mortality in heart failure patients aged 80 years and older",
     "please_fill_out":"Please fill out required fields.",
+    "abbr":"Abbreviations:",
+    "abbr_details":"ACE, angiotensin-converting enzyme; ADL, activities of daily living; ARB, angiotensin II receptor blocker; BNP, B-type natriuretic peptide; BUN, blood urea nitrogen; HF, heart failure; JROADHF, the Japanese registry of acute decompensated heart failure; SBP, systolic blood pressure.",
     "clear":"Clear",
     "form":{
         "label":{
             "age":"Age",
             "sex":"Sex",
-            "barthel_index":"Barthel index",
+            "barthel_index":"ADL",
             "history_hf":"History of HF",
             "sbp":"SBP",
             "bun":"BUN",

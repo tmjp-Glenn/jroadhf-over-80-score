@@ -9,7 +9,7 @@ const Index = () => {
     });
   }, []);
   return (
-    <div className="flex justify-center   ">
+    <div className=" min-h-screen ">
       <Home />
     </div>
   );

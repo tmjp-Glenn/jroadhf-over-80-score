@@ -73,8 +73,8 @@ public class DataInputsServiceCallable {
                 double constantValue = 1.37464;
 
                 Double exponent = totalPoints - constantValue;
-                double oneYearMortality = (1 - (Math.pow(oneYearMortalityConstantVal, exponent))) * 100;
-                double threeYearMortality = (1 - (Math.pow(threeYearMortalityConstantVal, exponent))) * 100;
+                double oneYearMortality = (1 - (Math.pow(oneYearMortalityConstantVal, Math.exp(exponent)))) * 100;
+                double threeYearMortality = (1 - (Math.pow(threeYearMortalityConstantVal, Math.exp(exponent)))) * 100;
                 MortalityResult mortalityResult = new MortalityResult(oneYearMortality, threeYearMortality);
                 return mortalityResult;
         }

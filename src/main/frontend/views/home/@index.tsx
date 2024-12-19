@@ -168,8 +168,8 @@ const Home = () => {
           // onClear={onClear}
           ref={resultCardRef}
           isLoading={isCalculationLoading}
-          oneYearMortality={parseFloat(oneYearMortalityValue.toFixed(1))}
-          threeyearMortality={parseFloat(threeYearMortalityValue.toFixed(1))}
+          oneYearMortality={Math.max(parseFloat(oneYearMortalityValue.toFixed(1)), 0)}
+          threeyearMortality={Math.max(parseFloat(threeYearMortalityValue.toFixed(1)), 0)}
         />
       ) : (
         <div className="animate-slide-up  bottom-0 bg-primary items-center justify-center w-full p-2  flex flex-row text-white border-t-8 border-secondary-light  ">

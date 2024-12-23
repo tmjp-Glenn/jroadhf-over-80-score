@@ -19,7 +19,7 @@ const ResultCard = forwardRef<HTMLDivElement, IResultCard>((props, ref) => {
       ref={ref}
       className="animate-slide-up sticky bottom-0 select-none bg-primary w-full py-2 sm:rounded-none rounded-ss-2xl rounded-se-2xl flex justify-center sm:border-t-8 border-t-[5px] border-secondary-light">
       {isLoading ? (
-        <div className="flex-1 justify-center items-center flex py-[100px] ">
+        <div className="flex-1 justify-center items-center flex py-[61px] ">
           <Loading />
         </div>
       ) : (

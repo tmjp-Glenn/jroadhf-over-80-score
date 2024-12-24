@@ -13,7 +13,7 @@ interface IResultCard {
 const ResultCard = forwardRef<HTMLDivElement, IResultCard>((props, ref) => {
   const { t } = useTranslation('home');
   const { oneYearMortality, threeyearMortality, isLoading } = props;
-
+  console.log(oneYearMortality);
   return (
     <div
       ref={ref}
@@ -26,7 +26,9 @@ const ResultCard = forwardRef<HTMLDivElement, IResultCard>((props, ref) => {
         <div className="lg:max-w-4xl w-full items-center justify-center  flex flex-row relative">
           <div className="flex-1 justify-center items-center flex py-9 flex-col">
             <span>
-              <span className="sm:text-5xl text-2xl font-bold text-white">{oneYearMortality.toFixed(1)}</span>
+              <span className="sm:text-5xl text-2xl font-bold text-white">
+                {oneYearMortality == 99 ? '>' + oneYearMortality : oneYearMortality.toFixed(1)}
+              </span>
               <sub className="sm:text-2xl text-base text-white">%</sub>
             </span>
             <span className="sm:text-2xl font-semibold text-secondary-lighter">{t('result.1_year_mortality')}</span>
@@ -50,7 +52,11 @@ const ResultCard = forwardRef<HTMLDivElement, IResultCard>((props, ref) => {
           </button> */}
           <div className="flex-1 justify-center items-center flex border-l py-9 flex-col ">
             <span>
-              <span className="sm:text-5xl text-2xl font-bold text-white">{threeyearMortality.toFixed(1)}</span>
+              <span className="sm:text-5xl text-2xl font-bold text-white">
+                {threeyearMortality == 99 ? '>' + threeyearMortality : threeyearMortality.toFixed(1)}
+                {/* {threeyearMortality == 99 && '>'}
+                {threeyearMortality.toFixed(1)} */}
+              </span>
               <sub className="sm:text-2xl text-base text-white">%</sub>
             </span>
             <span className="sm:text-2xl font-semibold text-secondary-lighter">{t('result.3_year_mortality')}</span>

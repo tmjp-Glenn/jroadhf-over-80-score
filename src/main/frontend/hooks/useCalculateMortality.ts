@@ -3,11 +3,17 @@ import { calculateMortality } from 'Frontend/generated/DataInputsServiceCallable
 import { InputSwitchData } from 'Frontend/types/InputSwitch.type';
 import { RefObject, useEffect, useState } from 'react';
 
-export const useCalculateMortality = (inputValue: { [key: string]: InputSwitchData } | undefined,resultCardRef:RefObject<HTMLDivElement>) => {
+export const useCalculateMortality = (
+  inputValue: { [key: string]: InputSwitchData } | undefined,
+  resultCardRef: RefObject<HTMLDivElement>
+) => {
   const [keys, setKeys] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [mortality, setMortality] = useState<MortalityResult | null>();
-  const [isFirstCalculation,setFirstTimeCalculation]=useState<boolean>(true)
+  const [mortality, setMortality] = useState<MortalityResult>({
+    oneYearMortality: 0,
+    threeYearMortality: 0,
+  });
+  const [isFirstCalculation, setFirstTimeCalculation] = useState<boolean>(true);
   const handleScrollToResultCard = () => {
     resultCardRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -22,18 +28,20 @@ export const useCalculateMortality = (inputValue: { [key: string]: InputSwitchDa
           totalPoints += inputValue[key].value;
         }
         setIsLoading(true);
-        const mortalityValue = await calculateMortality(totalPoints);
+        const mortalityValue = (await calculateMortality(totalPoints)) || {
+          oneYearMortality: 0,
+          threeYearMortality: 0,
+        };
         setMortality(mortalityValue);
-        if(isFirstCalculation){
-          handleScrollToResultCard()
-          setFirstTimeCalculation(false)
+        if (isFirstCalculation) {
+          handleScrollToResultCard();
+          setFirstTimeCalculation(false);
         }
-        console.log(totalPoints);
       } else {
-        setMortality(null);
+        setMortality({ oneYearMortality: 0, threeYearMortality: 0 });
       }
     } else {
-      setMortality(null);
+      setMortality({ oneYearMortality: 0, threeYearMortality: 0 });
     }
     setIsLoading(false);
   };
@@ -45,7 +53,9 @@ export const useCalculateMortality = (inputValue: { [key: string]: InputSwitchDa
   return {
     keysLength: keys.length,
     isCalculationLoading: isLoading,
-    oneYearMortalityValue: mortality?.oneYearMortality,
-    threeYearMortalityValue: mortality?.threeYearMortality,
+    // oneYearMortalityValue: mortality?.oneYearMortality,
+    // threeYearMortalityValue: mortality?.threeYearMortality,
+    oneYearMortalityValue: mortality?.oneYearMortality > 99 ? 99 : mortality?.oneYearMortality,
+    threeYearMortalityValue: mortality?.threeYearMortality > 99 ? 99 : mortality?.threeYearMortality,
   };
 };
